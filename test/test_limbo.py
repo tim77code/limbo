@@ -208,6 +208,8 @@ def test_loop_hook():
     hooks = limbo.init_plugins("test/plugins")
     server = limbo.FakeServer(hooks=hooks)
     slack = limbo.FakeSlack()
-    limbo.loop(server, test_loop=1)
+    metrics = limbo.NullMetrics()
+    limbo.loop(server, metrics, test_loop=1)
 
     assert server._loop_plugin_ran == True
+    assert metrics.count == 0

@@ -15,6 +15,7 @@ import traceback
 from .slack import SlackClient, SlackConnectionError, SlackLoginError
 from .server import LimboServer
 from .fakeserver import FakeServer
+from .nullmetrics import NullMetrics
 
 CURDIR = os.path.abspath(os.path.dirname(__file__))
 DIR = functools.partial(os.path.join, CURDIR)
@@ -185,11 +186,11 @@ def init_config():
 
     return config
 
-
-def loop(server, test_loop=None):
+def loop(server, metrics, test_loop=None):
     """Run the main loop
 
     server is a limbo Server object
+    metrics is an object for recording metrics (right now, event counts)
     test_loop, if present, is a number of times to run the loop
     """
     try:
@@ -227,6 +228,9 @@ def loop(server, test_loop=None):
                     server.slack.rtm_send_message(event["channel"],
                                                   response[:1000], thread_ts)
                     response = response[1000:]
+
+            # Record number of events just processed
+            metrics.events(len(events))
 
             # Run the loop hook. This doesn't send messages it receives,
             # because it doesn't know where to send them. Use
@@ -290,6 +294,8 @@ export SLACK_TOKEN=<your-slack-bot-token>
     server = Server(slack, config, hooks, db)
     return server
 
+def init_metrics(config):
+    return NullMetrics(config)
 
 # decode a string. if str is a python 3 string, do nothing.
 def decode(str_, codec='utf8'):
@@ -322,13 +328,14 @@ def main(args):
         return
 
     server = init_server(args, config)
+    metrics = init_metrics(config)
 
     try:
         server.slack.rtm_connect()
         # run init hook. This hook doesn't send messages to the server (ought it?)
         run_hook(server.hooks, "init", server)
 
-        loop(server)
+        loop(server, metrics)
     except SlackConnectionError:
         logger.warn("Unable to connect to Slack. Bad network?")
         raise

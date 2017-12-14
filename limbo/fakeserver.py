@@ -59,3 +59,6 @@ class FakeSlack(object):
 
     def rtm_read(self):
         return self.events.pop() if self.events else []
+
+    def rtm_send_message(self, channel_id, message, thread_ts=None):
+        pass
