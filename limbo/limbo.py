@@ -274,6 +274,7 @@ def init_server(args, config, Server=LimboServer, Client=SlackClient):
 
     config_plugins = config.get("plugins")
     plugins_to_load = config_plugins.split(",") if config_plugins else []
+    config['pluginpath'] = args.pluginpath
 
     hooks = init_plugins(args.pluginpath, plugins_to_load)
     try:
