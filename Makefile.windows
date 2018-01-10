@@ -63,16 +63,16 @@ docker_stop:
 
 .PHONY: ecr_repo
 ecr_repo:
-	docker-compose.exe -f cmds.yml run aws ecr create-repository --region us-east-1 --repository-name tim77/${SERVICE_NAME}
+	docker-compose.exe -f cmds.windows.yml run aws ecr create-repository --region us-east-1 --repository-name tim77/${SERVICE_NAME}
 
 .PHONY: travis_deploy
 travis_deploy:
-	bin/deploy.sh update
+	bin/deploy.windows.sh update
 
 .PHONY: ecs_start
 ecs_start:
-	bin/deploy.sh start
+	bin/deploy.windows.sh start
 
 .PHONY: ecs_stop
 ecs_stop:
-	bin/deploy.sh stop
+	bin/deploy.windows.sh stop

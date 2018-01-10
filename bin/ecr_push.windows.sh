@@ -3,7 +3,7 @@
 ## The acrobatics here (ie, output to limbo-tmp, using sed to extract
 ## password) are work-arounds to both awscli and MacOS problems.
 
-docker-compose.exe -f cmds.yml run aws ecr get-login \
+docker-compose.exe -f cmds.windows.yml run aws ecr get-login \
                     --region us-east-1 --no-include-email > limbo-tmp
 
 cat limbo-tmp | sed 's/docker login -u AWS -p \([^ ]*\) .*/\1/' \
