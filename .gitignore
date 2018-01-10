@@ -17,4 +17,4 @@ slask.egg-info/
 .python-version
 .cache
 *~
-local-env
+windows-env
