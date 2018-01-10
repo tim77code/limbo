@@ -55,23 +55,23 @@ export LIMBO_CLOUDWATCH="Limbo&Botname=${SERVICE_NAME}&Env=${TYPE}"
 
 case "$1" in
   start)
-    bin/ecr_push.sh
-    docker-compose.exe --file cmds.yml run \
+    bin/ecr_push.windows.sh
+    docker-compose.exe --file cmds.windows.yml run \
       ecs-cli compose --file docker-compose.yml --region us-east-1 --cluster limbo \
         --project-name $SERVICE_NAME-$TYPE service up
     ;;
 
   stop)
-    docker-compose.exe --file cmds.yml run \
+    docker-compose.exe --file cmds.windows.yml run \
       ecs-cli compose --file docker-compose.yml --region us-east-1 --cluster limbo \
         --project-name $SERVICE_NAME-$TYPE service rm
     ;;
 
   update)
-    if (docker-compose.exe --file cmds.yml run ecs-cli ps --region us-east-1 --cluster limbo \
+    if (docker-compose.exe --file cmds.windows.yml run ecs-cli ps --region us-east-1 --cluster limbo \
          | grep RUNNING | grep $SERVICE_NAME); then
-      bin/ecr_push.sh
-      docker-compose.exe --file cmds.yml run \
+      bin/ecr_push.windows.sh
+      docker-compose.exe --file cmds.windows.yml run \
         ecs-cli compose --file docker-compose.yml --region us-east-1 --cluster limbo \
           --project-name $SERVICE_NAME-$TYPE service up
     else
