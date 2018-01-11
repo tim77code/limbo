@@ -56,6 +56,11 @@ docker_run:
 	@# Suppress echo so slack token does not get shown
 	@docker run -e SLACK_TOKEN=${SLACK_TOKEN} tim77/limbo
 
+.PHONY: docker_debug
+docker_debug:
+	@# Note: This command is insecure, because it emits SLACK_TOKEN to the terminal.
+	docker run -e SLACK_TOKEN=${SLACK_TOKEN} -e LIMBO_LOGLEVEL=DEBUG tim77/limbo
+
 .PHONY: docker_stop
 docker_stop:
 	docker stop `docker ps -q --filter ancestor=tim77/limbo --format="{{.ID}}"`
