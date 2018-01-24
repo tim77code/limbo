@@ -332,6 +332,10 @@ def main(args):
 
     try:
         server.slack.rtm_connect()
+        if args.botname:
+            print(server.slack.username)
+            return
+
         # run init hook. This hook doesn't send messages to the server (ought it?)
         run_hook(server.hooks, "init", server)
 
