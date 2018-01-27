@@ -5,3 +5,20 @@ services:
   test:
     image: limbo
     entrypoint: [ "pytest", "--cov=limbo", "--cov-report", "term-missing", "test" ]
+
+  ecs:
+    image: limbo
+    entrypoint: /app/bin/ecs.sh
+    volumes: [ "/var/run/docker.sock:/var/run/docker.sock" ]
+    environment:
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+      SLACK_TOKEN:
+      LIMBO_CLOUDWATCH:
+      LIMBO_LOGLEVEL:
+      LIMBO_LOGFILE:
+      LIMBO_LOGFORMAT:
+      LIMBO_PLUGINS:
+      BOTNAME:
+      TRAVIS_BRANCH:
+      TRAVIS_PULL_REQUEST:
