@@ -1,3 +1,4 @@
+.env
 venv/
 *.pyc
 config.py
@@ -16,5 +17,3 @@ slask.egg-info/
 .vagrant
 .python-version
 .cache
-*~
-windows-env

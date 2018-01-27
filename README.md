@@ -1,7 +1,7 @@
 # Limbo
 ### A [Slack](https://slack.com/) chatbot
 
-![](https://travis-ci.org/tim77code/limbo.svg?branch=master)
+![](https://travis-ci.org/llimllib/limbo.svg?branch=master)
 
 ## Installation
 
@@ -29,9 +29,7 @@ I recommend that you always run limbo in a [virtualenv](http://docs.python-guide
 * LIMBO_LOGLEVEL: The logging level. Defaults to INFO.
 * LIMBO_LOGFILE: File to log info to. Defaults to none.
 * LIMBO_LOGFORMAT: Format for log messages. Defaults to `%(asctime)s:%(levelname)s:%(name)s:%(message)s`.
-* LIMBO_CLOUDWATCH: Turn on CloudWatch metrics.  Must have format _NameSpace_&_DimName-1_=_Value-1_&...&_DimName-n_=_Value-n_, for zero or more dimension-value pairs.  A metric named `EventCount` will be published into the given namespace with the given dimensions (and unit `Count`).  This metric gives the number of events Limbo received from Slack.
 * LIMBO_PLUGINS: Comma-delimited string of plugins to load. Defaults to loading all plugins in the plugins directory (which defaults to "limbo/plugins")
-* LIMBO_NEEDMENTION: If defined, then the Limbo chatbot will only respond to commands addressed to it (via an @-mention).  If undefined, then will respond to all command sent to channels it has been invited to.
 
 Note that if you are getting an error message about not seeing environment variables, you may be running limbo as `sudo`, which will clear the environment. Use a virtualenv and always run limbo as a user process!
 

@@ -1,8 +1,0 @@
-ARG BASE
-FROM $BASE
-
-# Ideally, we'd strip out stuff needed only for building, not runtime
-
-ENTRYPOINT ["/app/bin/limbo"]
-
-# vim: set expandtab tabstop=4 shiftwidth=4 autoindent smartindent:

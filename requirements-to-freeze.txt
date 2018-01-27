@@ -25,6 +25,3 @@ pyfiglet
 
 #slack
 websocket-client
-
-#aws
-boto3
