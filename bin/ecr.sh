@@ -31,7 +31,7 @@ case "$CMD" in
   mkrepo)
     aws ecr describe-repositories --region $REGION --repository-names $REPO >& /dev/null
     if [ $? -ne 0 ]; then
-      aws ecr create-repository --region $REGION --repository-names $REPO
+      aws ecr create-repository --region $REGION --repository-name $REPO
     else
       echo "Repository $REPO already exists."
     fi
